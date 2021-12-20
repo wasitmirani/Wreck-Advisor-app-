@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(kPrimaryColor),
         accentColor: Color(kPrimaryColor),
         primarySwatch: Colors.deepPurple,
+  
       ),
       debugShowCheckedModeBanner: false,
       // Start the app with the "/" named route. In this case, the app starts

@@ -9,23 +9,25 @@ const kblueColor = 0xFF111BFC;
 final TextStyle kTitleStyle = TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.bold,
-  color: Color(kPrimaryColor),
+  color: Colors.white,
 );
 
 final TextStyle kTitleBlackStyle = TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.bold,
   color: Color(kBlackColor),
+  fontFamily: 'Raleway',
 );
 
 final TextStyle ksubTitleGreenStyle = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold,
   color: Color(kgreenColor),
+  fontFamily: 'Raleway',
 );
 
-final TextStyle ksubTitleBlackStyle = TextStyle(
-  fontSize: 12,
-  fontWeight: FontWeight.bold,
-  color: Color(kBlackColor),
+final TextStyle subcontentsStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w100,
+  color: Colors.white,
 );
