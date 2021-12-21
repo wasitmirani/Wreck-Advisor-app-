@@ -27,8 +27,8 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.fromLTRB(60, 10, 40, 5),
               child: Column(
                 children: [
-                  customHeading("Wrecked Your Car!"),
-                  customHeading("We Are Here"),
+                  whiteHeading("Wrecked Your Car!"),
+                  whiteHeading("We Are Here"),
                 ],
               ),
             ),
@@ -49,9 +49,15 @@ class _HomeState extends State<Home> {
                 child: Text('Skip', style: subcontentsStyle),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: gradientButton(context, "Get Started"),
+            GestureDetector(
+              onTap: () {
+                print('trest');
+                Navigator.pushNamed(context, '/login');
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: gradientButton(context, "Get Started"),
+              ),
             ),
           ]),
         ],

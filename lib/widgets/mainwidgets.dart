@@ -26,8 +26,12 @@ Widget customImage(context, path, hvalue, wvalue, pvalue) {
   );
 }
 
-Widget customHeading(value) {
+Widget whiteHeading(value) {
   return Text(value, style: kTitleStyle);
+}
+
+Widget greenHeading(value) {
+  return Text(value, style: greenTitleStyle);
 }
 
 Widget customText(value) {
