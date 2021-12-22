@@ -46,7 +46,7 @@ Widget gradientButton(context, value) {
       decoration: BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
+        end: Alignment(0.2, 1.2),
         colors: [
           Color(0xFF020420),
           Color(0xFF10AEBA),

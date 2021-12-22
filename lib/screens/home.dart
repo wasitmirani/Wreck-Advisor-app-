@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new Stack(
+      body:  Stack(
         children: <Widget>[
           appBackgroundScreen(),
           ListView(children: <Widget>[
