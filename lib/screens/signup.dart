@@ -1,20 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wreckadvisor/helper/constants.dart';
 import 'package:wreckadvisor/widgets/mainwidgets.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Singup extends StatefulWidget {
+  const Singup({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _SingupState createState() => _SingupState();
 }
 
-class _LoginState extends State<Login> {
+class _SingupState extends State<Singup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +31,7 @@ class _LoginState extends State<Login> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 30),
-            child: greenHeading("Login Now"),
+            child: greenHeading("Sign Up"),
           ),
           Padding(
             padding: EdgeInsets.only(left: 20, right: 20, top: 10),
@@ -56,7 +52,41 @@ class _LoginState extends State<Login> {
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
+                      hintText: 'Enter Your Name',
+                      labelStyle: TextStyle(color: Colors.white),
+                      labelText: 'Full Name',
+                      hintStyle: TextStyle(color: Colors.white),
+                    ),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      fillColor: Color(0xFF071C37),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
                       hintText: 'Enter Email Address',
+                      labelStyle: TextStyle(color: Colors.white),
+                      labelText: 'Email',
+                      hintStyle: TextStyle(color: Colors.white),
+                    ),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      fillColor: Color(0xFF071C37),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      hintText: 'Enter Phone',
                       labelStyle: TextStyle(color: Colors.white),
                       labelText: 'Email',
                       hintStyle: TextStyle(color: Colors.white),
@@ -85,21 +115,14 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 5),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text("forgot Password",
-                          style: TextStyle(color: Color(kcgreenColor))),
-                    ]),
                 SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    print('trest');
-                    Navigator.pushNamed(context, '/signup');
+                    Navigator.pushNamed(context, '/feeds');
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: gradientButton(context, "Login"),
+                    child: gradientButton(context, "Sign Up"),
                   ),
                 ),
                 Padding(
@@ -108,9 +131,9 @@ class _LoginState extends State<Login> {
                     child: Column(
                       children: [
                         Text(
-                          "Login With",
+                          "Or Signup With",
                           style: TextStyle(
-                              color: Color(kcgreenColor), fontSize: 20),
+                              color: Color(kcgreenColor), fontSize: 14),
                         ),
                         SizedBox(height: 20),
                         Row(
@@ -154,24 +177,6 @@ class _LoginState extends State<Login> {
                                 ),
                               )
                             ]),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 20),
-                          child: Text(
-                            "Or",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Sign Up Now",
-                            style: TextStyle(
-                                color: Color(kcgreenColor), fontSize: 20),
-                          ),
-                        )
                       ],
                     ),
                   ),
