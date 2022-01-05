@@ -1,11 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wreckadvisor/helper/constants.dart';
+import 'package:wreckadvisor/helper/helpers.dart';
 import 'package:wreckadvisor/widgets/mainwidgets.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,6 +19,35 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final emailTextContainer = TextEditingController();
+  final passwordTextContainer = TextEditingController();
+  bool isnotlogin = false;
+
+  loginUser() async {
+    // setState(() {
+    //   loading = true;
+    // });
+    var url = apiurl + "/login";
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': emailTextContainer.text.toString(),
+        'password': passwordTextContainer.text.toString(),
+      }),
+    );
+    isnotlogin = response.statusCode == 200 ? false : true;
+
+    if (response.statusCode == 200) {
+      isnotlogin = false;
+      // Navigator.pushNamed('/feeds');
+      Navigator.pushNamed(context, '/feeds');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +83,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                   child: TextField(
+                    controller: emailTextContainer,
                     decoration: InputDecoration(
                       fillColor: Color(0xFF071C37),
                       filled: true,
@@ -67,6 +101,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   child: TextField(
+                    controller: passwordTextContainer,
                     decoration: InputDecoration(
                       fillColor: Color(0xFF071C37),
                       filled: true,
@@ -94,8 +129,57 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    print('trest');
-                    Navigator.pushNamed(context, '/signup');
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          child: Container(
+                            color: Color(0xff090A16),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                CircularProgressIndicator(),
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text("Loading....",
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                    Future.delayed(new Duration(seconds: 3), () {
+                      Navigator.pop(context); //pop dialog
+
+                      loginUser();
+
+                      if (isnotlogin) {
+                        final snackBar = SnackBar(
+                          content: const Text(
+                              'Please check your username and password and try again'),
+                          backgroundColor: Colors.red,
+                          duration: Duration(seconds: 3),
+                          action: SnackBarAction(
+                            label: 'Error',
+                            textColor: Colors.white,
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar.
+
+                    // if (response.statusCode == 200) {}
+                    // print(response);
+                    // Navigator.pushNamed(context, '/signup');
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -123,7 +207,7 @@ class _LoginState extends State<Login> {
                                     splashColor:
                                         Colors.blueAccent, // Splash color
                                     onTap: () {},
-                                    child: const SizedBox(
+                                    child: SizedBox(
                                         width: 56,
                                         height: 56,
                                         child: Icon(

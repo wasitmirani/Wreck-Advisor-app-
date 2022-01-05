@@ -17,7 +17,7 @@ final TextStyle kTitleStyle = TextStyle(
 final TextStyle greenTitleStyle = TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.bold,
-  color:Color(kcgreenColor),
+  color: Color(kcgreenColor),
   fontFamily: 'Schyler',
 );
 final TextStyle kTitleBlackStyle = TextStyle(
