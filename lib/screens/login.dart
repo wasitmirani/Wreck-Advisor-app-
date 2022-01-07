@@ -40,14 +40,16 @@ class _LoginState extends State<Login> {
         'password': passwordTextContainer.text.toString(),
       }),
     );
-    isnotlogin = response.statusCode == 200 ? false : true;
 
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      var res = jsonEncode(response.body);
+      var res = jsonDecode(response.body);
       print(res);
       isnotlogin = false;
       // Navigator.pushNamed('/feeds');
       Navigator.pushNamed(context, '/feeds');
+    } else {
+      isnotlogin = false;
     }
   }
 
