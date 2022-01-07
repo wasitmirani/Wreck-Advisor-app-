@@ -92,7 +92,7 @@ Widget feedsCard(BuildContext context, item) {
           color: Colors.transparent,
           image: DecorationImage(
             fit: BoxFit.contain,
-            image: Image.network(item.img.toString()),
+            image: NetworkImage(item.img.toString()),
           ),
         ),
       ),
