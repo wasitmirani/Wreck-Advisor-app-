@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Nexus Wellness',
       theme: ThemeData(
-        primaryColor: Color(kPrimaryColor),
-        accentColor: Color(kPrimaryColor),
-        primarySwatch: Colors.deepPurple,
-      ),
+          primaryColor: Color(kPrimaryColor),
+          accentColor: Color(kPrimaryColor),
+          primarySwatch: Colors.deepPurple,
+          errorColor: Colors.yellow),
       debugShowCheckedModeBanner: false,
       // Start the app with the "/" named route. In this case, the app starts
       initialRoute: '/',

@@ -22,6 +22,7 @@ class _LoginState extends State<Login> {
   final emailTextContainer = TextEditingController();
   final passwordTextContainer = TextEditingController();
   bool isnotlogin = false;
+  final _formKey = GlobalKey<FormState>();
 
   loginUser() async {
     // setState(() {
@@ -42,10 +43,127 @@ class _LoginState extends State<Login> {
     isnotlogin = response.statusCode == 200 ? false : true;
 
     if (response.statusCode == 200) {
+      var res = jsonEncode(response.body);
+      print(res);
       isnotlogin = false;
       // Navigator.pushNamed('/feeds');
       Navigator.pushNamed(context, '/feeds');
     }
+  }
+
+  Widget loginForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: TextFormField(
+              validator: (value) {
+                print("hello");
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              controller: emailTextContainer,
+              decoration: InputDecoration(
+                fillColor: Color(0xFF071C37),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                hintText: 'Enter Email Address',
+                labelStyle: TextStyle(color: Colors.white),
+                labelText: 'Email',
+                hintStyle: TextStyle(color: Colors.white),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            child: TextField(
+              controller: passwordTextContainer,
+              decoration: InputDecoration(
+                fillColor: Color(0xFF071C37),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                hintText: '*******',
+                labelStyle: TextStyle(color: Colors.white),
+                labelText: 'Password',
+                hintStyle: TextStyle(color: Colors.white),
+              ),
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          SizedBox(height: 5),
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+            Text("forgot Password",
+                style: TextStyle(color: Color(kcgreenColor))),
+          ]),
+          SizedBox(height: 10),
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return Dialog(
+                    child: Container(
+                      color: Color(0xff090A16),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          CircularProgressIndicator(),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text("Loading....",
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+              Future.delayed(new Duration(seconds: 3), () {
+                Navigator.pop(context); //pop dialog
+
+                loginUser();
+
+                if (isnotlogin) {
+                  final snackBar = SnackBar(
+                    content: const Text(
+                        'Please check your username and password and try again'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                    action: SnackBarAction(
+                      label: 'Error',
+                      textColor: Colors.white,
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: gradientButton(context, "Login"),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -80,112 +198,7 @@ class _LoginState extends State<Login> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  child: TextField(
-                    controller: emailTextContainer,
-                    decoration: InputDecoration(
-                      fillColor: Color(0xFF071C37),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      hintText: 'Enter Email Address',
-                      labelStyle: TextStyle(color: Colors.white),
-                      labelText: 'Email',
-                      hintStyle: TextStyle(color: Colors.white),
-                    ),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                  child: TextField(
-                    controller: passwordTextContainer,
-                    decoration: InputDecoration(
-                      fillColor: Color(0xFF071C37),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      hintText: '*******',
-                      labelStyle: TextStyle(color: Colors.white),
-                      labelText: 'Password',
-                      hintStyle: TextStyle(color: Colors.white),
-                    ),
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                SizedBox(height: 5),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text("forgot Password",
-                          style: TextStyle(color: Color(kcgreenColor))),
-                    ]),
-                SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          child: Container(
-                            color: Color(0xff090A16),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                CircularProgressIndicator(),
-                                Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Text("Loading....",
-                                      style: TextStyle(color: Colors.white)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                    Future.delayed(new Duration(seconds: 3), () {
-                      Navigator.pop(context); //pop dialog
-
-                      loginUser();
-
-                      if (isnotlogin) {
-                        final snackBar = SnackBar(
-                          content: const Text(
-                              'Please check your username and password and try again'),
-                          backgroundColor: Colors.red,
-                          duration: Duration(seconds: 3),
-                          action: SnackBarAction(
-                            label: 'Error',
-                            textColor: Colors.white,
-                            onPressed: () {
-                              // Some code to undo the change.
-                            },
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    });
-
-                    // Find the ScaffoldMessenger in the widget tree
-                    // and use it to show a SnackBar.
-
-                    // if (response.statusCode == 200) {}
-                    // print(response);
-                    // Navigator.pushNamed(context, '/signup');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: gradientButton(context, "Login"),
-                  ),
-                ),
+                loginForm(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
