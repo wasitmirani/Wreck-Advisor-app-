@@ -72,10 +72,10 @@ void getColor() {
   var rand = new Random().nextInt(4);
   switch (rand) {
     case 1:
-      "eloo";
+      "0xFFFFC198";
       break;
     case 2:
-      "2";
+      "0x";
       break;
 
     default:

@@ -29,27 +29,29 @@ class _LoginState extends State<Login> {
     //   loading = true;
     // });
     var url = apiurl + "/login";
+    if (emailTextContainer.toString().length > 0) {
+      print("hello");
+      final response = await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'username': emailTextContainer.text.toString(),
+          'password': passwordTextContainer.text.toString(),
+        }),
+      );
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'username': emailTextContainer.text.toString(),
-        'password': passwordTextContainer.text.toString(),
-      }),
-    );
-
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      var res = jsonDecode(response.body);
-      print(res);
-      isnotlogin = false;
-      // Navigator.pushNamed('/feeds');
-      Navigator.pushNamed(context, '/feeds');
-    } else {
-      isnotlogin = false;
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var res = jsonDecode(response.body);
+        print(res);
+        isnotlogin = false;
+        // Navigator.pushNamed('/feeds');
+        Navigator.pushNamed(context, '/feeds');
+      } else {
+        isnotlogin = false;
+      }
     }
   }
 
@@ -137,8 +139,23 @@ class _LoginState extends State<Login> {
               );
               Future.delayed(new Duration(seconds: 3), () {
                 Navigator.pop(context); //pop dialog
-
-                loginUser();
+                if (emailTextContainer.text.length < 1) {
+                  final snackBar = SnackBar(
+                    content: const Text('Please enter email & password'),
+                    backgroundColor: Colors.blueAccent,
+                    duration: Duration(seconds: 3),
+                    action: SnackBarAction(
+                      label: 'Error',
+                      textColor: Colors.white,
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  loginUser();
+                }
 
                 if (isnotlogin) {
                   final snackBar = SnackBar(
