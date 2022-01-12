@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wreckadvisor/helper/constants.dart';
 import 'package:wreckadvisor/helper/helpers.dart';
 import 'package:wreckadvisor/widgets/mainwidgets.dart';
@@ -25,6 +26,8 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   loginUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     // setState(() {
     //   loading = true;
     // });
@@ -44,8 +47,12 @@ class _LoginState extends State<Login> {
 
       print(response.statusCode);
       if (response.statusCode == 200) {
-        var res = jsonDecode(response.body);
-        print(res);
+        final res = jsonDecode(response.body);
+        print(res['token']);
+        prefs.setString('token', res['token']);
+
+        print(prefs.getString('token'));
+        // print(res);
         isnotlogin = false;
         // Navigator.pushNamed('/feeds');
         Navigator.pushNamed(context, '/feeds');

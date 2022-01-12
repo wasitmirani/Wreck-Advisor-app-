@@ -69,15 +69,21 @@ Widget gradientButton(context, value) {
 }
 
 void getColor() {
-  var rand = new Random().nextInt(4);
+  var rand = Random().nextInt(4);
   switch (rand) {
     case 1:
-      "0xFFFFC198";
+      Color(0xFFFFC198).withOpacity(0.5);
+
       break;
     case 2:
-      "0x";
+      Color(0xFF5FF8F8).withOpacity(0.5);
       break;
-
+    case 3:
+      Color(0xFF5AF08C).withOpacity(0.5);
+      break;
+    case 3:
+      Color(0xFF9341F0).withOpacity(0.5);
+      break;
     default:
   }
 }
@@ -92,7 +98,9 @@ Widget feedsCard(BuildContext context, item) {
           color: Colors.transparent,
           image: DecorationImage(
             fit: BoxFit.contain,
-            image: NetworkImage(item.img.toString()),
+            image: NetworkImage(item['img'].toString().length > 0
+                ? item['img'].toString()
+                : "https://dev-wreckadvisor.digiproficeint.com/frontend/assets/images/banner.png"),
           ),
         ),
       ),
@@ -106,7 +114,7 @@ Widget feedsCard(BuildContext context, item) {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(item.title.toString(),
+              child: Text(item['title'].toString(),
                   style: TextStyle(color: Colors.white, fontSize: 16)),
             ),
             Padding(
@@ -144,7 +152,7 @@ Widget feedsCard(BuildContext context, item) {
               end: Alignment(0.2, 1.2),
               colors: [
                 Color(0xFF020420).withOpacity(0.9),
-                Color(0xFFB44116).withOpacity(0.5)
+                getColor(),
               ],
             )),
       )

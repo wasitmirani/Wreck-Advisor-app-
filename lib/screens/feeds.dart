@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wreckadvisor/helper/constants.dart';
+import 'package:wreckadvisor/helper/helpers.dart';
 import 'package:wreckadvisor/widgets/mainwidgets.dart';
+import 'package:http/http.dart' as http;
 
 class Feeds extends StatefulWidget {
   const Feeds({Key? key}) : super(key: key);
@@ -10,103 +15,101 @@ class Feeds extends StatefulWidget {
 }
 
 class _FeedsState extends State<Feeds> {
+  List listings = [];
+  bool loading = false;
+
+  fetchArticles() async {
+    setState(() {
+      loading = true;
+    });
+
+    var url = apiurl + "/listings";
+    final response = await http.get(Uri.parse(url));
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      var items = json.decode(response.body);
+      if (items.length > 0) {
+        setState(() {
+          listings = items['listings'];
+          print(listings);
+          loading = false;
+        });
+      } else {
+        listings = [];
+        loading = false;
+      }
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: <Widget>[
-      appBackgroundScreen(),
-      Padding(
-        padding: const EdgeInsets.fromLTRB(40, 60, 0, 10),
-        child: Container(
-            width: 150,
-            height: 100,
-            child: Image.asset('assets/images/logo.png',
-                width: MediaQuery.of(context).size.width / 1,
-                fit: BoxFit.contain)),
-      ),
-      ListView(children: <Widget>[
-        SizedBox(
-          height: 150,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 30, right: 20),
-          child: whiteHeading("We Make Everything Easy For Wrecked Users"),
-        ),
-        SizedBox(height: 60),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 190,
-          child: Stack(children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                image: DecorationImage(
-                  fit: BoxFit.contain,
-                  image: AssetImage(
-                    'assets/images/feeds.png',
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: whiteHeading("Trade Your Car"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        'There are many variations of passages Ipsum available, Now',
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 20),
-                            primary: Color(0xFF26EAFA),
-                          ),
-                          onPressed: () {},
-                          child: const Text('Trade Now'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Container(
-                              width: 80,
-                              height: 60,
-                              child: Image.asset('assets/images/logo.png',
-                                  width: MediaQuery.of(context).size.width / 1,
-                                  fit: BoxFit.contain)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment(0.2, 1.2),
-                    colors: [
-                      Color(0xFF020420).withOpacity(0.9),
-                      Color(0xFF088B95).withOpacity(0.5)
-                    ],
-                  )),
-            )
-          ]),
-        ),
-        SizedBox(
-          height: 20,
+  void initState() {
+    super.initState();
+    this.fetchArticles();
+    print("state printing...");
+  }
+
+  Widget getArticles() {
+    if (listings.contains(null) || listings.length < 0 || loading) {
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellowAccent),
+      ));
+    }
+    return SingleChildScrollView(
+      physics: ScrollPhysics(),
+      child: Column(children: <Widget>[
+        // **THIS is the important part**
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => feedsCard(context, listings[index]),
+          itemCount: listings.length,
         ),
       ]),
-    ]));
+    );
+  }
+
+  Future<Null> _refreshArticles() async {
+    setState(() {
+      fetchArticles();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+        onWillPop: () async {
+          return Future.delayed(const Duration(milliseconds: 500), () {
+            exit(0);
+          });
+        },
+        child: Scaffold(
+            body: Stack(children: <Widget>[
+          appBackgroundScreen(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 60, 0, 10),
+            child: Container(
+                width: 150,
+                height: 100,
+                child: Image.asset('assets/images/logo.png',
+                    width: MediaQuery.of(context).size.width / 1,
+                    fit: BoxFit.contain)),
+          ),
+          ListView(children: <Widget>[
+            SizedBox(
+              height: 150,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 30, right: 20),
+              child: whiteHeading("We Make Everything Easy For Wrecked Users"),
+            ),
+            SizedBox(height: 60),
+            getArticles(),
+            SizedBox(
+              height: 20,
+            ),
+          ]),
+        ])));
   }
 }
