@@ -68,95 +68,102 @@ Widget gradientButton(context, value) {
   );
 }
 
-void getColor() {
-  var rand = Random().nextInt(4);
+var randcolor = 0xFFF84AF8;
+getColor() {
+  var rand = Random().nextInt(3);
   switch (rand) {
     case 1:
-      Color(0xFFFFC198).withOpacity(0.5);
-
+      // Color(.withOpacity(0.5);
+      randcolor = 0xFFFFC198;
       break;
     case 2:
-      Color(0xFF5FF8F8).withOpacity(0.5);
+      randcolor = 0xFF5FF8F8;
       break;
     case 3:
-      Color(0xFF5AF08C).withOpacity(0.5);
+      randcolor = 0xFF5AF08C;
       break;
     case 3:
-      Color(0xFF9341F0).withOpacity(0.5);
+      randcolor = 0xFF9341F0;
       break;
     default:
+      randcolor = 0xFF5AF08C;
+      break;
   }
 }
 
 Widget feedsCard(BuildContext context, item) {
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    height: 190,
-    child: Stack(children: <Widget>[
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          image: DecorationImage(
-            fit: BoxFit.contain,
-            image: NetworkImage(item['img'].toString().length > 0
-                ? item['img'].toString()
-                : "https://dev-wreckadvisor.digiproficeint.com/frontend/assets/images/banner.png"),
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      height: 220,
+      child: Stack(children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(item['thumbnail'].toString().length > 0
+                  ? item['thumbnail'].toString()
+                  : "https://dev-wreckadvisor.digiproficeint.com/frontend/assets/images/banner.png"),
+            ),
           ),
         ),
-      ),
-      Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: whiteHeading("Sale Your Car"),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(item['title'].toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 16)),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      primary: Color(0xFFFFC198),
-                    ),
-                    onPressed: () {},
-                    child: const Text('Trade Now'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Container(
-                        width: 80,
-                        height: 60,
-                        child: Image.asset('assets/images/logo.png',
-                            width: MediaQuery.of(context).size.width / 1,
-                            fit: BoxFit.contain)),
-                  ),
-                ],
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: whiteHeading(item['title'].toString()),
               ),
-            ),
-          ],
-        ),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment(0.2, 1.2),
-              colors: [
-                Color(0xFF020420).withOpacity(0.9),
-                getColor(),
-              ],
-            )),
-      )
-    ]),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(item['description'].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.white, fontSize: 16)),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 20),
+                        primary: Color(randcolor),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Trade Now'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Container(
+                          width: 80,
+                          height: 60,
+                          child: Image.asset('assets/images/logo.png',
+                              width: MediaQuery.of(context).size.width / 1,
+                              fit: BoxFit.contain)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          width: MediaQuery.of(context).size.width / 0.8,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment(0.2, 1.2),
+                colors: [
+                  Color(0xFF020420).withOpacity(0.9),
+                  Color(randcolor).withOpacity(0.5),
+                ],
+              )),
+        )
+      ]),
+    ),
   );
 }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wreckadvisor/helper/constants.dart';
@@ -45,8 +46,11 @@ class _FeedsState extends State<Feeds> {
   @override
   void initState() {
     super.initState();
+    getColor();
     this.fetchArticles();
     print("state printing...");
+
+    print(randcolor);
   }
 
   Widget getArticles() {
@@ -96,20 +100,24 @@ class _FeedsState extends State<Feeds> {
                     width: MediaQuery.of(context).size.width / 1,
                     fit: BoxFit.contain)),
           ),
-          ListView(children: <Widget>[
-            SizedBox(
-              height: 150,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 30, right: 20),
-              child: whiteHeading("We Make Everything Easy For Wrecked Users"),
-            ),
-            SizedBox(height: 60),
-            getArticles(),
-            SizedBox(
-              height: 20,
-            ),
-          ]),
+          RefreshIndicator(
+            onRefresh: _refreshArticles,
+            child: ListView(children: <Widget>[
+              SizedBox(
+                height: 150,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30, right: 20),
+                child:
+                    whiteHeading("We Make Everything Easy For Wrecked Users"),
+              ),
+              SizedBox(height: 60),
+              getArticles(),
+              SizedBox(
+                height: 20,
+              ),
+            ]),
+          ),
         ])));
   }
 }
