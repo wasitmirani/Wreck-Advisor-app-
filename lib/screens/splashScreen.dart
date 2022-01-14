@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,11 +15,15 @@ class _SplashScreenState extends State<SplashScreen> {
     loadScreen();
   }
 
-  loadScreen()  {
+  loadScreen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString("token");
     setState(() {
       Timer(
         Duration(seconds: 3),
-        () => Navigator.pushNamed(context, '/home'),
+        () => token.toString().length < 1
+            ? Navigator.pushNamed(context, '/home')
+            : Navigator.pushNamed(context, '/home'),
       );
     });
   }

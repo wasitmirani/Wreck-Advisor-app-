@@ -89,35 +89,69 @@ class _FeedsState extends State<Feeds> {
           });
         },
         child: Scaffold(
+            drawer: Drawer(
+                // Add a ListView to the drawer. This ensures the user can scroll
+                // through the options in the drawer if there isn't enough vertical
+                // space to fit everything.
+                child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Color(kPrimaryColor),
+                  ),
+                  child: Text('Menu '),
+                ),
+                ListTile(
+                  title: const Text('Item 1'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: const Text('Item 2'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            )),
             body: Stack(children: <Widget>[
-          appBackgroundScreen(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40, 60, 0, 10),
-            child: Container(
-                width: 150,
-                height: 100,
-                child: Image.asset('assets/images/logo.png',
-                    width: MediaQuery.of(context).size.width / 1,
-                    fit: BoxFit.contain)),
-          ),
-          RefreshIndicator(
-            onRefresh: _refreshArticles,
-            child: ListView(children: <Widget>[
-              SizedBox(
-                height: 150,
-              ),
+              appBackgroundScreen(),
               Padding(
-                padding: EdgeInsets.only(left: 30, right: 20),
-                child:
-                    whiteHeading("We Make Everything Easy For Wrecked Users"),
+                padding: const EdgeInsets.fromLTRB(40, 60, 0, 10),
+                child: Container(
+                    width: 150,
+                    height: 100,
+                    child: Image.asset('assets/images/logo.png',
+                        width: MediaQuery.of(context).size.width / 1,
+                        fit: BoxFit.contain)),
               ),
-              SizedBox(height: 60),
-              getArticles(),
-              SizedBox(
-                height: 20,
+              RefreshIndicator(
+                onRefresh: _refreshArticles,
+                child: ListView(children: <Widget>[
+                  SizedBox(
+                    height: 150,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30, right: 20),
+                    child: whiteHeading(
+                        "We Make Everything Easy For Wrecked Users"),
+                  ),
+                  SizedBox(height: 60),
+                  getArticles(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ]),
               ),
-            ]),
-          ),
-        ])));
+            ])));
   }
 }

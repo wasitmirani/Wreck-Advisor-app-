@@ -68,30 +68,54 @@ Widget gradientButton(context, value) {
   );
 }
 
-var randcolor = 0xFFF84AF8;
+var randcolor = 0xFF2E2E9B;
 getColor() {
   var rand = Random().nextInt(3);
   switch (rand) {
     case 1:
       // Color(.withOpacity(0.5);
-      randcolor = 0xFFFFC198;
+      randcolor = 0xFFB44116;
       break;
     case 2:
-      randcolor = 0xFF5FF8F8;
+      randcolor = 0xFF088B95;
       break;
     case 3:
-      randcolor = 0xFF5AF08C;
+      randcolor = 0xFF2D7260;
       break;
     case 3:
-      randcolor = 0xFF9341F0;
+      randcolor = 0xFF65258D;
       break;
     default:
-      randcolor = 0xFF5AF08C;
+      randcolor = 0xFF2E2E9B;
+      break;
+  }
+}
+
+var btncolor = 0xFF2E2E9B;
+btnColors() {
+  var rand = Random().nextInt(3);
+  switch (rand) {
+    case 1:
+      btncolor = 0xFFB44116;
+      break;
+    case 2:
+      btncolor = 0xFF088B95;
+      break;
+    case 3:
+      btncolor = 0xFF2D7260;
+      break;
+    case 3:
+      btncolor = 0xFF65258D;
+      break;
+    default:
+      btncolor = 0xFF2E2E9B;
       break;
   }
 }
 
 Widget feedsCard(BuildContext context, item) {
+  getColor();
+  btnColors();
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Container(
@@ -128,13 +152,16 @@ Widget feedsCard(BuildContext context, item) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                        primary: Color(randcolor),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 60),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: Color(btncolor),
+                        ),
+                        onPressed: () {},
+                        child: const Text('Trade Now'),
                       ),
-                      onPressed: () {},
-                      child: const Text('Trade Now'),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
