@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Duration(seconds: 3),
         () => token.toString().length < 1
             ? Navigator.pushNamed(context, '/home')
-            : Navigator.pushNamed(context, '/home'),
+            : Navigator.pushNamed(context, '/feeds'),
       );
     });
   }

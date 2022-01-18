@@ -61,7 +61,7 @@ class _FeedsState extends State<Feeds> {
     if (listings.contains(null) || listings.length < 0 || loading) {
       return Center(
           child: CircularProgressIndicator(
-        valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellowAccent),
+        valueColor: AlwaysStoppedAnimation<Color>(Color(kPrimaryColor)),
       ));
     }
     return SingleChildScrollView(
@@ -93,9 +93,9 @@ class _FeedsState extends State<Feeds> {
           });
         },
         child: Theme(
-            data: ThemeData(primarySwatch: Colors.blueGrey),
+            data: ThemeData(accentColor: Colors.black),
             child: Scaffold(
-                appBar: AppBar(title: Text("TWAr")),
+                appBar: AppBar(title: Text("")),
                 drawer: Drawer(
                     // Add a ListView to the drawer. This ensures the user can scroll
                     // through the options in the drawer if there isn't enough vertical
@@ -104,14 +104,12 @@ class _FeedsState extends State<Feeds> {
                   // Important: Remove any padding from the ListView.
                   padding: EdgeInsets.zero,
                   children: [
-                    const DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Color(kPrimaryColor),
-                      ),
-                      child: Text('Menu '),
+                    SizedBox(
+                      height: 20,
                     ),
                     ListTile(
-                      title: const Text('Item 1'),
+                      title: const Text('My Profile'),
+                      
                       onTap: () {
                         // Update the state of the app
                         // ...
