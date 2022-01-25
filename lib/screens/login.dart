@@ -11,6 +11,7 @@ import 'package:wreckadvisor/helper/constants.dart';
 import 'package:wreckadvisor/helper/helpers.dart';
 import 'package:wreckadvisor/widgets/mainwidgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -239,23 +240,23 @@ class _LoginState extends State<Login> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ClipOval(
-                                child: Material(
-                                  color: Colors.blue, // Button color
-                                  child: InkWell(
-                                    splashColor:
-                                        Colors.blueAccent, // Splash color
-                                    onTap: () {},
-                                    child: SizedBox(
-                                        width: 56,
-                                        height: 56,
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.white,
-                                        )),
-                                  ),
-                                ),
-                              ),
+                              // ClipOval(
+                              //   child: Material(
+                              //     color: Colors.blue, // Button color
+                              //     child: InkWell(
+                              //       splashColor:
+                              //           Colors.blueAccent, // Splash color
+                              //       onTap: () {},
+                              //       child: SizedBox(
+                              //           width: 56,
+                              //           height: 56,
+                              //           child: Icon(
+                              //             Icons.facebook,
+                              //             color: Colors.white,
+                              //           )),
+                              //     ),
+                              //   ),
+                              // ),
                               // ignore: prefer_const_constructors
                               SizedBox(
                                 width: 10,

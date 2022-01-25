@@ -92,71 +92,124 @@ class _FeedsState extends State<Feeds> {
             exit(0);
           });
         },
-        child: Theme(
-            data: ThemeData(accentColor: Colors.black),
-            child: Scaffold(
-                appBar: AppBar(title: Text("")),
-                drawer: Drawer(
-                    // Add a ListView to the drawer. This ensures the user can scroll
-                    // through the options in the drawer if there isn't enough vertical
-                    // space to fit everything.
-                    child: ListView(
-                  // Important: Remove any padding from the ListView.
-                  padding: EdgeInsets.zero,
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ListTile(
-                      title: const Text('My Profile'),
-                      
-                      onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('Item 2'),
-                      onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                )),
-                body: Stack(children: <Widget>[
-                  appBackgroundScreen(),
+        child: Scaffold(
+            drawer: Drawer(
+                // Add a ListView to the drawer. This ensures the user can scroll
+                // through the options in the drawer if there isn't enough vertical
+                // space to fit everything.
+                child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: [
+                SizedBox(
+                  height: 130,
+                ),
+                // customImage(context, '/images/logo.png', 30, 60, 20),
+                ListTile(
+                  leading: Icon(
+                    Icons.account_circle,
+                    size: 40,
+                    color: Color(kPrimaryColor),
+                  ),
+                  title: const Text('My Profile'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.add_photo_alternate,
+                    size: 40,
+                    color: Color(kPrimaryColor),
+                  ),
+                  title: const Text('My Ads'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.history,
+                    size: 40,
+                    color: Color(kPrimaryColor),
+                  ),
+                  title: const Text('History'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.car_repair,
+                    size: 40,
+                    color: Color(kPrimaryColor),
+                  ),
+                  title: const Text('Trade My Car'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.attach_money,
+                    size: 40,
+                    color: Color(kPrimaryColor),
+                  ),
+                  title: const Text('Trade My Car'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            )),
+            body: Stack(children: <Widget>[
+              appBackgroundScreen(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 60, 0, 10),
+                child: Container(
+                    width: 150,
+                    height: 100,
+                    child: Image.asset('assets/images/logo.png',
+                        width: MediaQuery.of(context).size.width / 1,
+                        fit: BoxFit.contain)),
+              ),
+              RefreshIndicator(
+                onRefresh: _refreshArticles,
+                child: ListView(children: <Widget>[
+                  SizedBox(
+                    height: 150,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 60, 0, 10),
-                    child: Container(
-                        width: 150,
-                        height: 100,
-                        child: Image.asset('assets/images/logo.png',
-                            width: MediaQuery.of(context).size.width / 1,
-                            fit: BoxFit.contain)),
+                    padding: EdgeInsets.only(left: 30, right: 20),
+                    child: whiteHeading(
+                        "We Make Everything Easy For Wrecked Users"),
                   ),
-                  RefreshIndicator(
-                    onRefresh: _refreshArticles,
-                    child: ListView(children: <Widget>[
-                      SizedBox(
-                        height: 150,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 30, right: 20),
-                        child: whiteHeading(
-                            "We Make Everything Easy For Wrecked Users"),
-                      ),
-                      SizedBox(height: 60),
-                      getArticles(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ]),
+                  SizedBox(height: 60),
+                  getArticles(),
+                  SizedBox(
+                    height: 20,
                   ),
-                ]))));
+                ]),
+              ),
+            ])));
   }
 }

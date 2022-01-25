@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Nexus Wellness',
+      title: 'Wreck Advisor',
       theme: ThemeData(
           primaryColor: Color(kPrimaryColor),
           accentColor: Color(kPrimaryColor),
