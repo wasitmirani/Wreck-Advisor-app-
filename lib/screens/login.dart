@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -25,6 +26,30 @@ class _LoginState extends State<Login> {
   final passwordTextContainer = TextEditingController();
   bool isnotlogin = false;
   final _formKey = GlobalKey<FormState>();
+  // final FirebaseAuth auth = FirebaseAuth.instance;
+  var user;
+
+  // Future<void> signup(BuildContext context) async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await googleSignIn.signIn();
+  //   if (googleSignInAccount != null) {
+  //     final GoogleSignInAuthentication googleSignInAuthentication =
+  //         await googleSignInAccount.authentication;
+  //     final AuthCredential authCredential = GoogleAuthProvider.credential(
+  //         idToken: googleSignInAuthentication.idToken,
+  //         accessToken: googleSignInAuthentication.accessToken);
+
+  //     // Getting users credential
+  //     UserCredential result = await auth.signInWithCredential(authCredential);
+  //     user = result.user;
+
+  //     if (result != null) {
+  //       Navigator.pushNamed(context, '/feeds');
+  //     } // if result not null we simply call the MaterialpageRoute,
+  //     // for go to the HomePage screen
+  //   }
+  // }
 
   loginUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -261,41 +286,43 @@ class _LoginState extends State<Login> {
                               SizedBox(
                                 width: 10,
                               ),
-                              ClipOval(
-                                child: Material(
-                                  color: Colors.redAccent, // Button color
-                                  child: InkWell(
-                                    splashColor: Colors.red, // Splash color
-                                    onTap: () {},
-                                    child: SizedBox(
-                                        width: 56,
-                                        height: 56,
-                                        child: Icon(
-                                          FontAwesomeIcons.googlePlus,
-                                          color: Colors.white,
-                                        )),
-                                  ),
-                                ),
-                              )
+                              // ClipOval(
+                              //   child: Material(
+                              //     color: Colors.redAccent, // Button color
+                              //     child: InkWell(
+                              //       splashColor: Colors.red, // Splash color
+                              //       onTap: () {
+                              //         signup(context);
+                              //       },
+                              //       child: SizedBox(
+                              //           width: 56,
+                              //           height: 56,
+                              //           child: Icon(
+                              //             FontAwesomeIcons.googlePlus,
+                              //             color: Colors.white,
+                              //           )),
+                              //     ),
+                              //   ),
+                              // )
                             ]),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 20),
-                          child: Text(
-                            "Or",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Sign Up Now",
-                            style: TextStyle(
-                                color: Color(kcgreenColor), fontSize: 20),
-                          ),
-                        )
+                        // Padding(
+                        //   padding: EdgeInsets.only(top: 20, bottom: 20),
+                        //   child: Text(
+                        //     "Or",
+                        //     style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.w700),
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text(
+                        //     "Sign Up Now",
+                        //     style: TextStyle(
+                        //         color: Color(kcgreenColor), fontSize: 20),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

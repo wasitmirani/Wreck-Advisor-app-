@@ -15,10 +15,13 @@ class _SplashScreenState extends State<SplashScreen> {
     loadScreen();
   }
 
-
   loadScreen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString("token");
+    print('token=' + token.toString());
+    if (token == null) {
+      token = "";
+    }
     setState(() {
       Timer(
         Duration(seconds: 3),

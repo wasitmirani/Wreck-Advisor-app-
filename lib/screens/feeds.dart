@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wreckadvisor/helper/constants.dart';
 import 'package:wreckadvisor/helper/helpers.dart';
 import 'package:wreckadvisor/widgets/mainwidgets.dart';
@@ -177,6 +178,25 @@ class _FeedsState extends State<Feeds> {
                     // ...
                     // Then close the drawer
                     Navigator.pop(context);
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    size: 40,
+                    color: Color(kPrimaryColor),
+                  ),
+                  title: const Text('Logout'),
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.clear();
+                    Navigator.pushNamed(context, '/');
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    // Navigator.pop(context);
                   },
                 )
               ],
