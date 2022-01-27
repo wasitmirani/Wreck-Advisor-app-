@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wreckadvisor/helper/constants.dart';
 import 'package:wreckadvisor/screens/feeds.dart';
 import 'package:wreckadvisor/screens/home.dart';
+import 'package:wreckadvisor/screens/listForm.dart';
 import 'package:wreckadvisor/screens/login.dart';
 import 'package:wreckadvisor/screens/signup.dart';
 import 'package:wreckadvisor/screens/splashScreen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => Singup(),
         '/feeds': (context) => Feeds(),
+        '/listingform': (context) => ListForm(),
       },
     );
   }

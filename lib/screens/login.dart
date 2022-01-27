@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -243,7 +243,7 @@ class _LoginState extends State<Login> {
           Padding(
             padding: EdgeInsets.only(left: 20, right: 20, top: 10),
             child: customText(
-                "There are many variations of passages Ipsum available, Now"),
+                "Enter your email and password to login in to your account"),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -256,11 +256,11 @@ class _LoginState extends State<Login> {
                   child: Center(
                     child: Column(
                       children: [
-                        Text(
-                          "Login With",
-                          style: TextStyle(
-                              color: Color(kcgreenColor), fontSize: 20),
-                        ),
+                        // Text(
+                        //   "Login With",
+                        //   style: TextStyle(
+                        //       color: Color(kcgreenColor), fontSize: 20),
+                        // ),
                         SizedBox(height: 20),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
