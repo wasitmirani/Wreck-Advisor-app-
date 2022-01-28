@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextFormField(
               validator: (value) {
-                print("hello");
+                
                 if (value == null || value.isEmpty) {
                   return 'Please enter some text';
                 }
