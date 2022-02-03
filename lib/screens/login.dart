@@ -70,10 +70,12 @@ class _LoginState extends State<Login> {
           'password': passwordTextContainer.text.toString(),
         }),
       );
-
+      // final res = jsonDecode(response.body);
       print(response.statusCode);
+      
       if (response.statusCode == 200) {
         final res = jsonDecode(response.body);
+        print(res);
         print(res['token']);
         prefs.setString('token', res['token']);
 
@@ -98,7 +100,6 @@ class _LoginState extends State<Login> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextFormField(
               validator: (value) {
-                
                 if (value == null || value.isEmpty) {
                   return 'Please enter some text';
                 }

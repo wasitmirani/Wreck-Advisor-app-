@@ -160,7 +160,7 @@ Widget feedsCard(BuildContext context, item) {
                           primary: Color(btncolor),
                         ),
                         onPressed: () {},
-                        child: const Text('Trade Now'),
+                        child: const Text('New'),
                       ),
                     ),
                     Padding(

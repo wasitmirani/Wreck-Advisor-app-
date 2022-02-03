@@ -30,7 +30,17 @@ class _FeedsState extends State<Feeds> {
     });
 
     var url = apiurl + "/listings";
-    final response = await http.get(Uri.parse(url));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString("token").toString();
+    final response = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
     print(response.body);
     if (response.statusCode == 200) {
@@ -94,6 +104,9 @@ class _FeedsState extends State<Feeds> {
           });
         },
         child: Scaffold(
+            appBar: AppBar(
+              title: Center(child: Text("Wreckadvisor Listing ")),
+            ),
             drawer: Drawer(
                 // Add a ListView to the drawer. This ensures the user can scroll
                 // through the options in the drawer if there isn't enough vertical
@@ -102,10 +115,15 @@ class _FeedsState extends State<Feeds> {
               // Important: Remove any padding from the ListView.
               padding: EdgeInsets.zero,
               children: [
-                SizedBox(
-                  height: 130,
-                ),
+                Container(
+                    // width: 150,
+                    // height: 100,
+                    child: Image.asset('assets/images/darklogo.png',
+                        width: MediaQuery.of(context).size.width / 1,
+                        fit: BoxFit.contain)),
+
                 // customImage(context, '/images/logo.png', 30, 60, 20),
+                Divider(),
                 ListTile(
                   leading: Icon(
                     Icons.account_circle,
@@ -132,7 +150,7 @@ class _FeedsState extends State<Feeds> {
                     // Update the state of the app
                     // ...
                     // Then close the drawer
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/feeds');
                   },
                 ),
                 Divider(),
@@ -162,25 +180,26 @@ class _FeedsState extends State<Feeds> {
                     // Update the state of the app
                     // ...
                     // Then close the drawer
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/listingform');
                   },
                 ),
                 Divider(),
-                ListTile(
-                  leading: Icon(
-                    Icons.attach_money,
-                    size: 40,
-                    color: Color(kPrimaryColor),
-                  ),
-                  title: const Text('Trade My Car'),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-                Divider(),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.attach_money,
+                //     size: 40,
+                //     color: Color(kPrimaryColor),
+                //   ),
+                //   title: const Text('My Listing'),
+                //   onTap: () {
+                //     // Update the state of the app
+                //     // ...
+                //     // Then close the drawer
+
+                //     Navigator.pushNamed(context, '/feeds');
+                //   },
+                // ),
+
                 ListTile(
                   leading: Icon(
                     Icons.logout,
